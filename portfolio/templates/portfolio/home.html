@@ -1,0 +1,49 @@
+{% extends 'portfolio/base.html' %}
+
+{% block content %}
+
+    <h1>Williams<span style="color: blue;"> Omenife</span> </h1>
+<!-- must be applied before static files can work -->
+{% load static %}  
+
+
+<a href="{% url 'blog:all_blogs' %}" target="_blank">Blog</a>
+<br>
+
+<!-- Resume -->
+<a href="{% static 'portfolio/mycv.pdf' %}">Resume</a>
+<br>
+<!-- End resume -->
+
+<!-- portfolio image -->
+<img src="{%   static 'portfolio/dumboy.jpeg'%}" class="card mx-auto d-block width="300" height="300" alt="my-photo">
+<!-- End portfolio image -->
+
+<!-- iterating/pulling projects from database -->
+<h1 class="bio" d-flex justify-content-center>I'm Williams Omenife, a self-taught software developer <br>proficient in the following stack: HTML, CSS, JavaScript, Bootstrap, Python, Dart, Flutter, PostgreSQL, WordPress, GitHub, Linux, Django, and Flask. <p>Continuous learner, boundary pusher, project explorer. Feel free to reach out.</p>
+</h1>
+<hr>
+
+<h3>Projects</h3>
+<div class="row">
+  {% for project in projects %}
+    <div class="col-md-4">
+      <div class="card">
+        <img src="{{ project.image.url }}" class="card-img-top" alt="{{ project.title }}">
+        <div class="card-body">
+          <h5 class="card-title">{{ project.title }}</h5>
+          <p class="card-text">{{ project.description }}</p>
+          {% if project.url %}
+            <a href="{{ project.url }}" class="btn btn-primary">project-link</a>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  {% endfor %}
+</div>
+
+
+<!-- End of  iterating projects -->
+
+
+{% endblock %}
